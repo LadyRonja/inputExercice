@@ -5,10 +5,12 @@ using UnityEngine;
 
 public abstract class PlayerMovement : MonoBehaviour
 {
-    public abstract void HandleMovement(Player player);
     protected Camera cam = Camera.main;
     protected float worldWidth = Camera.main.orthographicSize * 2 * ((float)Screen.width / Screen.height);
     protected float worldHeight = Camera.main.orthographicSize * 2;
+
+    public abstract void HandleMovement(Player player);
+    public abstract void UpdatePlayerInertia(Player player);
 
     protected void BindToScreenY(Player player)
     {

@@ -5,9 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private PlayerMovement movementManager;
-    public enum MovementTypes { Velocity, Acceleration};
+    [HideInInspector] public Vector2 inertia;
+
+    public enum MovementTypes { Velocity, Acceleration, Gravity};
     [SerializeField] private MovementTypes movementType;
     private MovementTypes lastFramesMoveSystem;
+
     [SerializeField] private MovementData movementData;
     [Space]
     public Transform WrapCloneLeft;
@@ -23,12 +26,16 @@ public class Player : MonoBehaviour
     {
         movementManager.HandleMovement(this);
         CheckMoveSystemChange();
+        if (Input.GetKeyDown(KeyCode.G))
+            ToggleGravity();
     }
 
-    private void CheckMoveSystemChange()
+    private void ToggleGravity()
     {
-        if (lastFramesMoveSystem == movementType) return;
-        SetUpMoveSystem();
+        if (movementType != MovementTypes.Gravity) 
+            movementType = MovementTypes.Gravity;
+        else 
+            movementType = MovementTypes.Acceleration;
     }
   
     private void SetUpMoveSystem()
@@ -43,11 +50,20 @@ public class Player : MonoBehaviour
                 movementManager = new MovementAcceleration(movementData);
                 lastFramesMoveSystem = MovementTypes.Acceleration;
                 break;
+            case MovementTypes.Gravity:
+                movementManager = new MovementGravity(movementData, inertia);
+                lastFramesMoveSystem = MovementTypes.Gravity;
+                break;
             default:
                 Debug.LogError("End of Switch-State-Machine reaced, new state not added?");
                 movementManager = new MovementVelocity(movementData);
                 lastFramesMoveSystem = MovementTypes.Velocity;
                 break;
         }
+    }
+    private void CheckMoveSystemChange()
+    {
+        if (lastFramesMoveSystem == movementType) return;
+        SetUpMoveSystem();
     }
 }

@@ -20,8 +20,13 @@ public class MovementVelocity : PlayerMovement
         player.transform.position += (Vector3)direction * speed * Time.deltaTime;
         base.BindToScreenY(player);
         base.WrapScreenX(player);
+        UpdatePlayerInertia(player);
     }
 
+    public override void UpdatePlayerInertia(Player player)
+    {
+        player.inertia = direction * speed;
+    }
 
     private void MovementInput()
     {

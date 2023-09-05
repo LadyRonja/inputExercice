@@ -13,4 +13,8 @@ public class MovementData : ScriptableObject
     public float accelerationSpeed = 15f;
     public float deacceleration = 10f;
     public float speedMax = 7f;
+
+    [Header("Gravity")]
+    public float gravity = 5f;
+    [Range(0, 1)]public float bounceEnergyConsumption = 0.8f;
 }

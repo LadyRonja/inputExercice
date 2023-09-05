@@ -30,6 +30,12 @@ public class MovementAcceleration : PlayerMovement
         player.transform.position += (Vector3)velocity * Time.deltaTime;
         base.BindToScreenY(player);
         base.WrapScreenX(player);
+        UpdatePlayerInertia(player);
+    }
+
+    public override void UpdatePlayerInertia(Player player)
+    {
+        player.inertia = velocity;
     }
 
     private void MovementInput()
@@ -66,4 +72,6 @@ public class MovementAcceleration : PlayerMovement
         velocity.x = Mathf.Clamp(velocity.x, -speedMax, speedMax);
         velocity.y = Mathf.Clamp(velocity.y, -speedMax, speedMax);
     }
+
+
 }
