@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementVelocity : MonoBehaviour
+public class MovementVelocity : PlayerMovement
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 5f;
     private Vector2 direction;
 
-    void Update()
+    public MovementVelocity(MovementData md)
+    {
+        speed = md.speed;
+    }
+
+    public override void HandleMovement(Player player)
     {
         MovementInput();
 
         // Apply Movement
-        transform.position += (Vector3)direction * speed * Time.deltaTime;
+        player.transform.position += (Vector3)direction * speed * Time.deltaTime;
+        base.BindToScreenY(player);
+        base.WrapScreenX(player);
     }
+
 
     private void MovementInput()
     {
@@ -22,4 +30,6 @@ public class MovementVelocity : MonoBehaviour
         direction.y += Input.GetAxisRaw("Vertical");
         direction.Normalize();
     }
+
+
 }

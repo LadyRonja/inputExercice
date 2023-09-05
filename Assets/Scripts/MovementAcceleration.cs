@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MovementAcceleration : MonoBehaviour
+
+public class MovementAcceleration : PlayerMovement
 {
     [SerializeField] private float accelerationSpeed;
     [SerializeField] private float deacceleration;
@@ -11,7 +12,14 @@ public class MovementAcceleration : MonoBehaviour
     private Vector2 direction;
     private Vector2 velocity = Vector2.zero;
 
-    void Update()
+    public MovementAcceleration(MovementData md)
+    {
+        accelerationSpeed = md.accelerationSpeed;
+        deacceleration = md.deacceleration;
+        speedMax = md.speedMax;
+    }
+
+    public override void HandleMovement(Player player)
     {
         MovementInput();
         Accelerate();
@@ -19,7 +27,9 @@ public class MovementAcceleration : MonoBehaviour
         LimitSpeed();
 
         // Apply Movement
-        transform.position += (Vector3)velocity * Time.deltaTime;
+        player.transform.position += (Vector3)velocity * Time.deltaTime;
+        base.BindToScreenY(player);
+        base.WrapScreenX(player);
     }
 
     private void MovementInput()
