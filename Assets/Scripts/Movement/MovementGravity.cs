@@ -23,11 +23,15 @@ public class MovementGravity : PlayerMovement
 
     public override void HandleMovement(Player player)
     {
-        ApplyGravity(player);
-        DeaccelerateXVelocity();
-        BounceOnGround(player);
+        base.RotationManager(player);
+       
         base.BindToScreenY(player);
         base.WrapScreenX(player);
+
+        ApplyGravity(player);
+        DeaccelerateXVelocity();
+        //BounceOnGround(player);
+
         UpdatePlayerInertia(player);
     }
 
@@ -39,7 +43,7 @@ public class MovementGravity : PlayerMovement
     private void ApplyGravity(Player player)
     {
         velocity.y -= gravityForce * Time.deltaTime;
-        player.transform.position += (Vector3)velocity * Time.deltaTime;
+        player.Rb.velocity += velocity * Time.deltaTime;
     }
 
     private void DeaccelerateXVelocity()

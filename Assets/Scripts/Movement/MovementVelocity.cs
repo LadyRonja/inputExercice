@@ -16,8 +16,11 @@ public class MovementVelocity : PlayerMovement
     {
         MovementInput();
 
+        // Rotation
+        base.RotationManager(player);
+
         // Apply Movement
-        player.transform.position += (Vector3)direction * speed * Time.deltaTime;
+        player.Rb.velocity = (Vector3)direction * speed /** Time.deltaTime*/;
         base.BindToScreenY(player);
         base.WrapScreenX(player);
         UpdatePlayerInertia(player);

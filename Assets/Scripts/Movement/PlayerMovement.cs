@@ -33,4 +33,12 @@ public abstract class PlayerMovement : MonoBehaviour
         if (player.transform.position.x < camPosX - halfWorldWidth) player.transform.position = new Vector3(camPosX + halfWorldWidth, player.transform.position.y, 0);
         
     }
+    protected void RotationManager(Player player)
+    {
+        Vector2 direction = Input.mousePosition - cam.WorldToScreenPoint(player.transform.position);
+
+        player.transform.up = direction;
+        player.WrapCloneLeft.up = direction;
+        player.WrapCloneRight.up = direction;
+    }
 }

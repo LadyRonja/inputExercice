@@ -21,13 +21,17 @@ public class MovementAcceleration : PlayerMovement
 
     public override void HandleMovement(Player player)
     {
+        // Movement
         MovementInput();
         Accelerate();
         Deaccelerate();
         LimitSpeed();
 
+        // Rotation
+        base.RotationManager(player);
+
         // Apply Movement
-        player.transform.position += (Vector3)velocity * Time.deltaTime;
+        player.Rb.velocity = velocity;
         base.BindToScreenY(player);
         base.WrapScreenX(player);
         UpdatePlayerInertia(player);
