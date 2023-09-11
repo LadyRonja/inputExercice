@@ -14,7 +14,9 @@ public class SceneHandler : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("Closing Game");
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+#endif
         Application.Quit();
     }
 }
