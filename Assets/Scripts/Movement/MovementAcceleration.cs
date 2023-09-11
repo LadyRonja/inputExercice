@@ -63,11 +63,13 @@ public class MovementAcceleration : PlayerMovement
         {
             if (velocity.x > 0) velocity.x -= deacceleration * Time.deltaTime; 
             if (velocity.x < 0) velocity.x += deacceleration * Time.deltaTime;
+            if (Mathf.Abs(velocity.x) < 0.5f) velocity.x = 0;
         }
 
         if (direction.y == 0) { 
             if (velocity.y > 0) velocity.y -= deacceleration * Time.deltaTime;
             if (velocity.y < 0) velocity.y += deacceleration * Time.deltaTime;
+            if (Mathf.Abs(velocity.y) < 0.5f) velocity.y = 0;
         }
     }
 

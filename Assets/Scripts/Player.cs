@@ -65,14 +65,17 @@ public class Player : MonoBehaviour
         {
             case MovementTypes.Velocity:
                 movementManager = new MovementVelocity(movementData);
+                rb.gravityScale = 0f;
                 lastFramesMoveSystem = MovementTypes.Velocity;
                 break;
             case MovementTypes.Acceleration:
                 movementManager = new MovementAcceleration(movementData);
+                rb.gravityScale = 0f;
                 lastFramesMoveSystem = MovementTypes.Acceleration;
                 break;
             case MovementTypes.Gravity:
-                movementManager = new MovementGravity(movementData, inertia);
+                //movementManager = new MovementGravity(movementData, inertia);
+                rb.gravityScale = movementData.gravity;
                 lastFramesMoveSystem = MovementTypes.Gravity;
                 break;
             default:

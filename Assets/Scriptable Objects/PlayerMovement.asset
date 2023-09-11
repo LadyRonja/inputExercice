@@ -16,5 +16,5 @@ MonoBehaviour:
   accelerationSpeed: 15
   deacceleration: 10
   speedMax: 7
-  gravity: 10
+  gravity: 30
   bounceEnergyConsumption: 0.4

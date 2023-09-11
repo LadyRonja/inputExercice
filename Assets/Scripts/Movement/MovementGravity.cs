@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Decrepit
+/// </summary>
 public class MovementGravity : PlayerMovement
 {
     [SerializeField] private float gravityForce = 5f;
